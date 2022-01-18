@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.4964124, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -361,27 +361,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &388782692 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8835229685202505509, guid: 00afc9fb4087652419d090da0b825d97, type: 3}
-  m_PrefabInstance: {fileID: 5790447825513800731}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &388782693 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8007466312498025151, guid: 00afc9fb4087652419d090da0b825d97, type: 3}
   m_PrefabInstance: {fileID: 5790447825513800731}
   m_PrefabAsset: {fileID: 0}
---- !u!210 &388782694
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 388782692}
-  m_Enabled: 1
-  m_SortingLayerID: 2097750727
-  m_SortingLayer: 1
-  m_SortingOrder: 0
 --- !u!1 &394303427
 GameObject:
   m_ObjectHideFlags: 0
@@ -1616,27 +1600,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1207329805 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3176744783887258002, guid: e0d57717ad485d748986ddb9eba2beb8, type: 3}
-  m_PrefabInstance: {fileID: 3599279343249421192}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1207329806 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2944973745361044811, guid: e0d57717ad485d748986ddb9eba2beb8, type: 3}
   m_PrefabInstance: {fileID: 3599279343249421192}
   m_PrefabAsset: {fileID: 0}
---- !u!210 &1207329807
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1207329805}
-  m_Enabled: 1
-  m_SortingLayerID: 2097750727
-  m_SortingLayer: 1
-  m_SortingOrder: 0
 --- !u!1 &1216257641
 GameObject:
   m_ObjectHideFlags: 0
@@ -2042,7 +2010,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 25
+  orthographic size: 16.93
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2066,7 +2034,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500100153}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -25.4}
+  m_LocalPosition: {x: -2.9, y: 1, z: -21.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3278,27 +3246,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1869982225 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3090786764695304946, guid: 3de838754c767a446a5473969062a84e, type: 3}
-  m_PrefabInstance: {fileID: 8763598642799732871}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1869982226 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8073972946613542793, guid: 3de838754c767a446a5473969062a84e, type: 3}
   m_PrefabInstance: {fileID: 8763598642799732871}
   m_PrefabAsset: {fileID: 0}
---- !u!210 &1869982227
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1869982225}
-  m_Enabled: 1
-  m_SortingLayerID: 2097750727
-  m_SortingLayer: 1
-  m_SortingOrder: 0
 --- !u!1 &1877822786
 GameObject:
   m_ObjectHideFlags: 0
