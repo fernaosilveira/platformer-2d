@@ -880,7 +880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myRigidbody: {fileID: 2121418893}
-  friction: {x: 0.1, y: 0}
+  friction: {x: 0.2, y: 0}
   speed: 10
+  speedRun: 18
   jumpForce: 30
-  dash: {x: 20, y: 0}
