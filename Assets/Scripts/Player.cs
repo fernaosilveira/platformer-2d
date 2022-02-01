@@ -8,10 +8,10 @@ public class Player : MonoBehaviour
     public string groundTag = "Ground";
 
     [Header("Movement Params")]
-    public Vector2 friction = new Vector2(.1f, 0);
     public float speed;
     public float speedRun;
     public float jumpForce = 1f;
+    public Vector2 friction = new Vector2(.1f, 0);
 
     private float _currentSpeed;
     private bool _isGrounded;
