@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
@@ -13,13 +14,28 @@ public class Player : MonoBehaviour
     public float jumpForce = 1f;
     public Vector2 friction = new Vector2(.1f, 0);
 
+    [Header("Animation Params")]
+    public float jumpduration = .3f;
+    public float jumpScaleY = 1.5f;
+    public float jumpScaleX = 0.7f;
+    public float fallduration = .3f;
+    public float fallScaleY = 0.6f;
+    public float fallScaleX = 1.3f;
+    public Ease ease = Ease.OutBack;
+
     private float _currentSpeed;
     private bool _isGrounded;
+    private Vector2 _baseScale;
 
+    private void Start()
+    {
+        _baseScale = myRigidbody.transform.localScale;
+    }
     void Update()
     {
         HandleJump();
         HandleMovement();
+        
     }
 
     private void HandleMovement()
@@ -64,8 +80,27 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 myRigidbody.velocity = Vector2.up * jumpForce;
+                myRigidbody.transform.localScale = _baseScale;
+                DOTween.Kill(myRigidbody.transform);
+                JumpAnimation();
             }
         }    
+    }
+
+    private void JumpAnimation()
+    {
+        myRigidbody.transform.DOScaleY(jumpScaleY, jumpduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+        myRigidbody.transform.DOScaleX(jumpScaleX, jumpduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+    }
+
+    private void FallInpactAnimation()
+    {
+        if (myRigidbody.velocity.y < 0)
+        {
+
+            myRigidbody.transform.DOScaleY(fallScaleY, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+            myRigidbody.transform.DOScaleX(fallScaleX, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -82,6 +117,8 @@ public class Player : MonoBehaviour
         {
             _isGrounded = true;
         }
+
+        FallInpactAnimation();
     }
 
 }
