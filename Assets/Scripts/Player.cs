@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Rigidbody2D myRigidbody;
+    public string groundTag = "Ground";
 
     [Header("Movement Params")]
     public Vector2 friction = new Vector2(.1f, 0);
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour
     public float jumpForce = 1f;
 
     private float _currentSpeed;
+    private bool _isGrounded;
 
     void Update()
     {
@@ -22,7 +24,7 @@ public class Player : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (myRigidbody.velocity.y == +0)
+        if (_isGrounded == true)
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -57,9 +59,29 @@ public class Player : MonoBehaviour
 
     private void HandleJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (_isGrounded == true)
         {
-            myRigidbody.velocity = Vector2.up * jumpForce; 
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                myRigidbody.velocity = Vector2.up * jumpForce;
+            }
+        }    
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == groundTag)
+        {
+            _isGrounded = false;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == groundTag)
+        {
+            _isGrounded = true;
+        }
+    }
+
 }
