@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
+    [Header("References")]
     public Rigidbody2D myRigidbody;
     public string groundTag = "Ground";
 
@@ -50,6 +51,7 @@ public class Player : MonoBehaviour
             {
                 _currentSpeed = speed;
             }
+
         }
 
         if (Input.GetKey(KeyCode.A))
@@ -95,9 +97,11 @@ public class Player : MonoBehaviour
 
     private void FallInpactAnimation()
     {
+       
         if (myRigidbody.velocity.y < 0)
         {
-
+            myRigidbody.transform.localScale = _baseScale;
+            DOTween.Kill(myRigidbody.transform);
             myRigidbody.transform.DOScaleY(fallScaleY, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
             myRigidbody.transform.DOScaleX(fallScaleX, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
         }
@@ -117,8 +121,9 @@ public class Player : MonoBehaviour
         {
             _isGrounded = true;
         }
-
+   
         FallInpactAnimation();
     }
 
 }
+
