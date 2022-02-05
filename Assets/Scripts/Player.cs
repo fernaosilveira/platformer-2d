@@ -8,11 +8,13 @@ public class Player : MonoBehaviour
     [Header("References")]
     public Rigidbody2D myRigidbody;
     public string groundTag = "Ground";
+    public string enemyTag = "Enemy";
 
     [Header("Movement Params")]
     public float speed;
     public float speedRun;
     public float jumpForce = 1f;
+    public float enemyBounce = 10f;
     public Vector2 friction = new Vector2(.1f, 0);
 
     [Header("Animation Params")]
@@ -107,11 +109,24 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void OnEnemyKill()
+    {
+        myRigidbody.velocity = Vector2.up * enemyBounce;
+        myRigidbody.transform.localScale = _baseScale;
+        DOTween.Kill(myRigidbody.transform);
+        JumpAnimation();
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == groundTag)
         {
             _isGrounded = false;
+        }
+
+        if (collision.tag == enemyTag)
+        {
+            OnEnemyKill();
         }
     }
 
