@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 221949230}
   - component: {fileID: 221949229}
   - component: {fileID: 221949231}
+  - component: {fileID: 221949232}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -313,6 +314,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 3
+--- !u!114 &221949232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221949227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2061a00b2d8064a369a89a5b5fca4558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startLife: 3
+  destroyOnKill: 1
 --- !u!1 &553681464
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,6 +340,7 @@ GameObject:
   - component: {fileID: 553681468}
   - component: {fileID: 553681467}
   - component: {fileID: 553681466}
+  - component: {fileID: 553681469}
   m_Layer: 0
   m_Name: Enemy (2)
   m_TagString: Enemy
@@ -436,6 +452,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &553681469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553681464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2061a00b2d8064a369a89a5b5fca4558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startLife: 3
+  destroyOnKill: 1
 --- !u!1 &828885416
 GameObject:
   m_ObjectHideFlags: 0
@@ -1216,6 +1246,7 @@ GameObject:
   - component: {fileID: 1849082153}
   - component: {fileID: 1849082152}
   - component: {fileID: 1849082151}
+  - component: {fileID: 1849082154}
   m_Layer: 0
   m_Name: Enemy (1)
   m_TagString: Enemy
@@ -1327,6 +1358,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1849082154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1849082149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2061a00b2d8064a369a89a5b5fca4558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startLife: 3
+  destroyOnKill: 1
 --- !u!1 &2095188380
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,6 +1567,7 @@ MonoBehaviour:
   fallScaleY: 0.6
   fallScaleX: 1.08
   ease: 27
+  playerDamage: 3
 --- !u!61 &2121418898
 BoxCollider2D:
   m_ObjectHideFlags: 0

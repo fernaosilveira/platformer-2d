@@ -20,7 +20,7 @@ public class EnemyBase : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if(_playerAttack == false)
+        if(!_playerAttack)
         {
             var health = collision.gameObject.GetComponent<HealthBase>();
             if (health != null)
@@ -33,6 +33,5 @@ public class EnemyBase : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         _playerAttack = true;
-        Destroy(gameObject);
     }
 }

@@ -26,6 +26,9 @@ public class Player : MonoBehaviour
     public float fallScaleX = 1.3f;
     public Ease ease = Ease.OutBack;
 
+    [Header("Damage Params")]
+    public int playerDamage = 10;
+
     private float _currentSpeed;
     private bool _isGrounded;
     private Vector2 _baseScale;
@@ -43,7 +46,7 @@ public class Player : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (_isGrounded == true)
+        if (_isGrounded)
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -79,7 +82,7 @@ public class Player : MonoBehaviour
 
     private void HandleJump()
     {
-        if (_isGrounded == true)
+        if (_isGrounded)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -124,10 +127,6 @@ public class Player : MonoBehaviour
             _isGrounded = false;
         }
 
-        if (collision.tag == enemyTag)
-        {
-            OnEnemyKill();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -138,7 +137,17 @@ public class Player : MonoBehaviour
         }
    
         FallInpactAnimation();
+
+        if (collision.tag == enemyTag)
+        {
+            OnEnemyKill();
+
+            var health = collision.gameObject.GetComponent<HealthBase>();
+            if (health != null)
+            {
+                health.Damage(playerDamage);
+            }
+        }
     }
 
 }
-
