@@ -29,8 +29,13 @@ public class Player : MonoBehaviour
     [Header("Damage Params")]
     public int playerDamage = 10;
 
+    [Header("Detection circle")]
+    public float centerOffset;
+    public float radius;
+
+    private int _groundLayer = 6;
+    private int _enemyLayer = 7;
     private float _currentSpeed;
-    private bool _isGrounded;
     private Vector2 _baseScale;
 
     private void Start()
@@ -39,14 +44,14 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        HandleJump();
         HandleMovement();
-        
+        HandleJump();
+        FallInpactAnimation();
     }
 
     private void HandleMovement()
     {
-        if (_isGrounded)
+        if (IsGrounded())
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -82,7 +87,7 @@ public class Player : MonoBehaviour
 
     private void HandleJump()
     {
-        if (_isGrounded)
+        if (IsGrounded())
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -103,7 +108,7 @@ public class Player : MonoBehaviour
     private void FallInpactAnimation()
     {
        
-        if (myRigidbody.velocity.y < 0)
+        if (myRigidbody.velocity.y < 0 && IsGrounded())
         {
             myRigidbody.transform.localScale = _baseScale;
             DOTween.Kill(myRigidbody.transform);
@@ -114,40 +119,44 @@ public class Player : MonoBehaviour
 
     private void OnEnemyKill()
     {
-        myRigidbody.velocity = Vector2.up * enemyBounce;
-        myRigidbody.transform.localScale = _baseScale;
-        DOTween.Kill(myRigidbody.transform);
-        JumpAnimation();
+       
+            myRigidbody.velocity = Vector2.up * enemyBounce;
+            myRigidbody.transform.localScale = _baseScale;
+            DOTween.Kill(myRigidbody.transform);
+            JumpAnimation();
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private bool IsGrounded()
     {
-        if (collision.tag == groundTag)
-        {
-            _isGrounded = false;
-        }
-
+        return Physics2D.OverlapCircle(new Vector2 (transform.position.x, transform.position.y - centerOffset), radius, _groundLayer);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private bool JumpOnEnemy()
     {
-        if (collision.tag == groundTag)
-        {
-            _isGrounded = true;
-        }
-   
-        FallInpactAnimation();
+        return Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y - centerOffset), radius, _enemyLayer);
+    }
 
-        if (collision.tag == enemyTag)
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (JumpOnEnemy())
         {
             OnEnemyKill();
-
             var health = collision.gameObject.GetComponent<HealthBase>();
             if (health != null)
             {
                 health.Damage(playerDamage);
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = IsGrounded() ? Gizmos.color = Color.red : Color.yellow;
+
+        Vector2 currentPosition = transform.position;
+        currentPosition.y = transform.position.y - centerOffset;
+
+        Gizmos.DrawWireSphere(currentPosition, radius);
     }
 
 }

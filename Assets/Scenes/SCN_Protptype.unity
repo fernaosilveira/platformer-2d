@@ -203,9 +203,9 @@ GameObject:
   - component: {fileID: 221949229}
   - component: {fileID: 221949231}
   - component: {fileID: 221949232}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -341,9 +341,9 @@ GameObject:
   - component: {fileID: 553681467}
   - component: {fileID: 553681466}
   - component: {fileID: 553681469}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy (2)
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -477,9 +477,9 @@ GameObject:
   - component: {fileID: 828885419}
   - component: {fileID: 828885418}
   - component: {fileID: 828885417}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform (3)
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -707,9 +707,9 @@ GameObject:
   - component: {fileID: 1192134880}
   - component: {fileID: 1192134879}
   - component: {fileID: 1192134878}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform (2)
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1027,9 +1027,9 @@ GameObject:
   - component: {fileID: 1558078845}
   - component: {fileID: 1558078844}
   - component: {fileID: 1558078843}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1136,9 +1136,9 @@ GameObject:
   - component: {fileID: 1642178562}
   - component: {fileID: 1642178561}
   - component: {fileID: 1642178560}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform (1)
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1247,9 +1247,9 @@ GameObject:
   - component: {fileID: 1849082152}
   - component: {fileID: 1849082151}
   - component: {fileID: 1849082154}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy (1)
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1568,6 +1568,8 @@ MonoBehaviour:
   fallScaleX: 1.08
   ease: 27
   playerDamage: 3
+  centerOffset: 0.35
+  radius: 0.3
 --- !u!61 &2121418898
 BoxCollider2D:
   m_ObjectHideFlags: 0
