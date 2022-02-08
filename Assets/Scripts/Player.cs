@@ -32,9 +32,9 @@ public class Player : MonoBehaviour
     [Header("Detection circle")]
     public float centerOffset;
     public float radius;
+    public LayerMask whatIsGround;
+    public LayerMask whatIsEnemy;
 
-    private int _groundLayer = 6;
-    private int _enemyLayer = 7;
     private float _currentSpeed;
     private Vector2 _baseScale;
 
@@ -51,18 +51,6 @@ public class Player : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (IsGrounded())
-        {
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                _currentSpeed = speedRun;
-            }
-            else
-            {
-                _currentSpeed = speed;
-            }
-
-        }
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -83,19 +71,30 @@ public class Player : MonoBehaviour
         {
             myRigidbody.velocity += friction;
         }
+        HandleRun();
+    }
+
+    private void HandleRun()
+    {
+        if (IsGrounded() && Input.GetKey(KeyCode.LeftShift))
+        {
+            _currentSpeed = speedRun;
+        }
+
+        else
+        {
+            _currentSpeed = speed;
+        }
     }
 
     private void HandleJump()
     {
-        if (IsGrounded())
+        if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                myRigidbody.velocity = Vector2.up * jumpForce;
-                myRigidbody.transform.localScale = _baseScale;
-                DOTween.Kill(myRigidbody.transform);
-                JumpAnimation();
-            }
+            myRigidbody.velocity = Vector2.up * jumpForce;
+            myRigidbody.transform.localScale = _baseScale;
+            DOTween.Kill(myRigidbody.transform);
+            JumpAnimation();
         }    
     }
 
@@ -107,11 +106,11 @@ public class Player : MonoBehaviour
 
     private void FallInpactAnimation()
     {
-       
-        if (myRigidbody.velocity.y < 0 && IsGrounded())
+      
+        if (IsGrounded() && myRigidbody.velocity.y <0)
         {
-            myRigidbody.transform.localScale = _baseScale;
             DOTween.Kill(myRigidbody.transform);
+            myRigidbody.transform.localScale = _baseScale;
             myRigidbody.transform.DOScaleY(fallScaleY, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
             myRigidbody.transform.DOScaleX(fallScaleX, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
         }
@@ -119,7 +118,6 @@ public class Player : MonoBehaviour
 
     private void OnEnemyKill()
     {
-       
             myRigidbody.velocity = Vector2.up * enemyBounce;
             myRigidbody.transform.localScale = _baseScale;
             DOTween.Kill(myRigidbody.transform);
@@ -128,16 +126,17 @@ public class Player : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(new Vector2 (transform.position.x, transform.position.y - centerOffset), radius, _groundLayer);
+        return Physics2D.OverlapCircle(new Vector2 (transform.position.x, transform.position.y - centerOffset), radius, whatIsGround);
     }
 
     private bool JumpOnEnemy()
     {
-        return Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y - centerOffset), radius, _enemyLayer);
+        return Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y - centerOffset), radius, whatIsEnemy);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
         if (JumpOnEnemy())
         {
             OnEnemyKill();

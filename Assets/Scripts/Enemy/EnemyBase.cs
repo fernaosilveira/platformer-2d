@@ -5,22 +5,21 @@ using UnityEngine;
 public class EnemyBase : MonoBehaviour
 {
     public int damage = 10;
-    private bool _playerAttack = false;
 
-    private void Awake()
-    {
-        Init();
-    }
+    [Header("Detection circle")]
+    public float centerOffset;
+    public float radius;
+    public LayerMask whatIsPlayer;
 
-    private void Init()
+    private bool IsPlayerAttack()
     {
-        _playerAttack = false;
+        return Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y - centerOffset), radius, whatIsPlayer);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if(!_playerAttack)
+        if(!IsPlayerAttack())
         {
             var health = collision.gameObject.GetComponent<HealthBase>();
             if (health != null)
@@ -28,10 +27,17 @@ public class EnemyBase : MonoBehaviour
                 health.Damage(damage);
             }
         }
+
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnDrawGizmos()
     {
-        _playerAttack = true;
+        Gizmos.color = IsPlayerAttack() ? Gizmos.color = Color.red : Color.yellow;
+
+        Vector2 currentPosition = transform.position;
+        currentPosition.y = transform.position.y - centerOffset;
+
+        Gizmos.DrawWireSphere(currentPosition, radius);
     }
+
 }
