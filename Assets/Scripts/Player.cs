@@ -7,8 +7,7 @@ public class Player : MonoBehaviour
 {
     [Header("References")]
     public Rigidbody2D myRigidbody;
-    public string groundTag = "Ground";
-    public string enemyTag = "Enemy";
+    
 
     [Header("Movement Params")]
     public float speed;
@@ -29,7 +28,7 @@ public class Player : MonoBehaviour
     [Header("Damage Params")]
     public int playerDamage = 10;
 
-    [Header("Detection circle")]
+    [Header("Detection area")]
     public float centerOffset;
     public float radius;
     public LayerMask whatIsGround;
@@ -106,13 +105,13 @@ public class Player : MonoBehaviour
 
     private void FallInpactAnimation()
     {
-      
-        if (IsGrounded() && myRigidbody.velocity.y <0)
+        if (IsGrounded() && myRigidbody.velocity.y <= -2f)
         {
-            DOTween.Kill(myRigidbody.transform);
             myRigidbody.transform.localScale = _baseScale;
+            DOTween.Kill(myRigidbody.transform);
             myRigidbody.transform.DOScaleY(fallScaleY, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
             myRigidbody.transform.DOScaleX(fallScaleX, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+
         }
     }
 
