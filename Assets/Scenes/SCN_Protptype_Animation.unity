@@ -1618,6 +1618,8 @@ MonoBehaviour:
     m_Bits: 128
   animator: {fileID: 1089206917}
   boolRun: Run
+  runSpeed: 1.5
+  turnDuration: 0.2
 --- !u!114 &2121418899
 MonoBehaviour:
   m_ObjectHideFlags: 0

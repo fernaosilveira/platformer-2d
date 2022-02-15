@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
                 myRigidbody.transform.DOScaleX(-_baseScale.x, turnDuration);
             }
             animator.SetBool(boolRun, true);
-            if (!IsGrounded())
+            if (!IsOverObject(whatIsGround))
             {
                 animator.SetBool(boolRun, false);
             }
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
                 myRigidbody.transform.DOScaleX(_baseScale.x, turnDuration);
             }
             animator.SetBool(boolRun, true);
-            if (!IsGrounded())
+            if (!IsOverObject(whatIsGround))
             {
                 animator.SetBool(boolRun, false);
             }
@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
     }
     private void HandleRun()
     {
-        if (IsGrounded() && Input.GetKey(KeyCode.LeftShift))
+        if (IsOverObject(whatIsGround) && Input.GetKey(KeyCode.LeftShift))
         {
             _currentSpeed = speedRun;
             animator.speed = runSpeed;
@@ -130,7 +130,7 @@ public class Player : MonoBehaviour
 
     private void HandleJump()
     {
-        if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
+        if (IsOverObject(whatIsGround) && Input.GetKeyDown(KeyCode.Space))
         {
             myRigidbody.velocity = Vector2.up * jumpForce;
             if (myRigidbody.transform.localScale.x < 0)
@@ -163,19 +163,18 @@ public class Player : MonoBehaviour
 
     private void FallInpactAnimation()
     {
-        if (IsGrounded() && myRigidbody.velocity.y <= -2f)
+        if (IsOverObject(whatIsGround) && myRigidbody.velocity.y <= -2f)
         {
-            if(myRigidbody.transform.localScale.x < 0)
+            DOTween.Kill(myRigidbody.transform);
+            if (myRigidbody.transform.localScale.x < 0)
             {
                 myRigidbody.transform.localScale = _turnScale;
-                DOTween.Kill(myRigidbody.transform);
                 myRigidbody.transform.DOScaleY(fallScaleY, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
                 myRigidbody.transform.DOScaleX(-fallScaleX, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
             }
             else
             {
                 myRigidbody.transform.localScale = _baseScale;
-                DOTween.Kill(myRigidbody.transform);
                 myRigidbody.transform.DOScaleY(fallScaleY, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
                 myRigidbody.transform.DOScaleX(fallScaleX, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
             }
@@ -190,20 +189,16 @@ public class Player : MonoBehaviour
             JumpAnimation();
     }
 
-    private bool IsGrounded()
+    private bool IsOverObject(LayerMask mask)
     {
-        return Physics2D.OverlapCircle(new Vector2 (transform.position.x, transform.position.y - centerOffset), radius, whatIsGround);
+        return Physics2D.OverlapCircle(new Vector2 (transform.position.x, transform.position.y - centerOffset), radius, mask);
     }
 
-    private bool JumpOnEnemy()
-    {
-        return Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y - centerOffset), radius, whatIsEnemy);
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (JumpOnEnemy())
+        if (IsOverObject(whatIsEnemy))
         {
             OnEnemyKill();
             var health = collision.gameObject.GetComponent<HealthBase>();
@@ -216,7 +211,7 @@ public class Player : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = IsGrounded() ? Gizmos.color = Color.red : Color.yellow;
+        Gizmos.color = IsOverObject(whatIsGround) ? Gizmos.color = Color.red : Color.yellow;
 
         Vector2 currentPosition = transform.position;
         currentPosition.y = transform.position.y - centerOffset;
