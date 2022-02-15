@@ -1567,8 +1567,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myRigidbody: {fileID: 2121418893}
-  groundTag: Ground
-  enemyTag: Enemy
   speed: 10
   speedRun: 14
   jumpForce: 30

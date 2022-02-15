@@ -34,12 +34,22 @@ public class Player : MonoBehaviour
     public LayerMask whatIsGround;
     public LayerMask whatIsEnemy;
 
+    [Header("Animator Player")]
+    public Animator animator;
+    public string boolRun = "Run";
+    public float runSpeed = 1.5f;
+    public float turnDuration = .2f;
+
     private float _currentSpeed;
     private Vector2 _baseScale;
+    private Vector2 _turnScale;
+
 
     private void Start()
     {
         _baseScale = myRigidbody.transform.localScale;
+        _turnScale = new Vector2(-_baseScale.x, _baseScale.y);
+
     }
     void Update()
     {
@@ -54,14 +64,46 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             myRigidbody.velocity = new Vector2(-_currentSpeed, myRigidbody.velocity.y);
+            if (myRigidbody.transform.localScale.x != -_baseScale.x)
+            {
+                myRigidbody.transform.DOScaleX(-_baseScale.x, turnDuration);
+            }
+            animator.SetBool(boolRun, true);
+            if (!IsGrounded())
+            {
+                animator.SetBool(boolRun, false);
+            }
+            
+
         }
 
-        if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
             myRigidbody.velocity = new Vector2(_currentSpeed, myRigidbody.velocity.y);
+            myRigidbody.transform.DOScaleX(_baseScale.x, turnDuration);
+            if (myRigidbody.transform.localScale.x != _baseScale.x)
+            {
+                myRigidbody.transform.DOScaleX(_baseScale.x, turnDuration);
+            }
+            animator.SetBool(boolRun, true);
+            if (!IsGrounded())
+            {
+                animator.SetBool(boolRun, false);
+            }
         }
 
-        if(myRigidbody.velocity.x > 0)
+        else
+        {
+            animator.SetBool(boolRun, false);
+        }
+
+        Friction();
+        HandleRun();
+    }
+
+    private void Friction()
+    {
+        if (myRigidbody.velocity.x > 0)
         {
             myRigidbody.velocity -= friction;
         }
@@ -70,19 +112,19 @@ public class Player : MonoBehaviour
         {
             myRigidbody.velocity += friction;
         }
-        HandleRun();
     }
-
     private void HandleRun()
     {
         if (IsGrounded() && Input.GetKey(KeyCode.LeftShift))
         {
             _currentSpeed = speedRun;
+            animator.speed = runSpeed;
         }
 
         else
         {
             _currentSpeed = speed;
+            animator.speed = 1;
         }
     }
 
@@ -91,7 +133,14 @@ public class Player : MonoBehaviour
         if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
         {
             myRigidbody.velocity = Vector2.up * jumpForce;
-            myRigidbody.transform.localScale = _baseScale;
+            if (myRigidbody.transform.localScale.x < 0)
+            {
+                myRigidbody.transform.localScale = _turnScale;
+            }
+            else
+            {
+                myRigidbody.transform.localScale = _baseScale;
+            }
             DOTween.Kill(myRigidbody.transform);
             JumpAnimation();
         }    
@@ -99,19 +148,37 @@ public class Player : MonoBehaviour
 
     private void JumpAnimation()
     {
-        myRigidbody.transform.DOScaleY(jumpScaleY, jumpduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-        myRigidbody.transform.DOScaleX(jumpScaleX, jumpduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+        if (myRigidbody.transform.localScale.x < 0)
+        {
+            myRigidbody.transform.DOScaleY(jumpScaleY, jumpduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+            myRigidbody.transform.DOScaleX(-jumpScaleX, jumpduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+        }
+        else
+        {
+            myRigidbody.transform.DOScaleY(jumpScaleY, jumpduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+            myRigidbody.transform.DOScaleX(jumpScaleX, jumpduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+        }
+           
     }
 
     private void FallInpactAnimation()
     {
         if (IsGrounded() && myRigidbody.velocity.y <= -2f)
         {
-            myRigidbody.transform.localScale = _baseScale;
-            DOTween.Kill(myRigidbody.transform);
-            myRigidbody.transform.DOScaleY(fallScaleY, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-            myRigidbody.transform.DOScaleX(fallScaleX, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
-
+            if(myRigidbody.transform.localScale.x < 0)
+            {
+                myRigidbody.transform.localScale = _turnScale;
+                DOTween.Kill(myRigidbody.transform);
+                myRigidbody.transform.DOScaleY(fallScaleY, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+                myRigidbody.transform.DOScaleX(-fallScaleX, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+            }
+            else
+            {
+                myRigidbody.transform.localScale = _baseScale;
+                DOTween.Kill(myRigidbody.transform);
+                myRigidbody.transform.DOScaleY(fallScaleY, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+                myRigidbody.transform.DOScaleX(fallScaleX, fallduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
+            }
         }
     }
 
