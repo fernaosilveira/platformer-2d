@@ -183,7 +183,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 146924238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07999964, y: 0.07099974, z: -1.43}
+  m_LocalPosition: {x: 0.07999976, y: -1.4595873, z: -1.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 830561058}
@@ -1065,7 +1065,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1502785656}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07999964, y: 0.07099974, z: -1.43}
+  m_LocalPosition: {x: 0.07999976, y: -1.4595873, z: -1.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1575,7 +1575,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121418892}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.107799605, y: 0.71058714, z: 0}
+  m_LocalPosition: {x: 0.107799605, y: -0.82, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.72}
   m_Children:
   - {fileID: 702920528}
@@ -1618,6 +1618,9 @@ MonoBehaviour:
     m_Bits: 128
   animator: {fileID: 1089206917}
   boolRun: Run
+  boolJumpDown: JumpDown
+  boolJumpUp: JumpUp
+  boolLanding: Landing
   runSpeed: 1.5
   turnDuration: 0.2
 --- !u!114 &2121418899

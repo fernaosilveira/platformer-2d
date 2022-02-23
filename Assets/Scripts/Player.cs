@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     public string boolRun = "Run";
     public string boolJumpDown = "JumpDown";
     public string boolJumpUp = "JumpUp";
+    public string boolLanding = "Landing";
     public float runSpeed = 1.5f;
     public float turnDuration = .2f;
 
@@ -138,7 +139,7 @@ public class Player : MonoBehaviour
             DOTween.Kill(myRigidbody.transform);
             JumpAnimation();
         }
-        else if (!IsOverObject(whatIsGround) && myRigidbody.velocity.y <= 0)
+        else if (myRigidbody.velocity.y <= 0)
         {
             animator.SetBool(boolJumpUp, false);
         }
@@ -168,9 +169,22 @@ public class Player : MonoBehaviour
         {
             animator.SetBool(boolJumpDown, false);
         }
+        LandingAnimation();
+    }
+    private void LandingAnimation()
+    {
+        if (IsOverObject(whatIsGround) && myRigidbody.velocity.y <= -1f
+            )
+        {
+            animator.SetBool(boolLanding, true);
+        }
+        else
+        {
+            animator.SetBool(boolLanding, false);
+        }
         FallInpactAnimation();
     }
-   
+
     private void FallInpactAnimation()
     {
         if (IsOverObject(whatIsGround) && myRigidbody.velocity.y <= -2f)
