@@ -37,6 +37,8 @@ public class Player : MonoBehaviour
     [Header("Animator Player")]
     public Animator animator;
     public string boolRun = "Run";
+    public string boolJumpDown = "JumpDown";
+    public string boolJumpUp = "JumpUp";
     public float runSpeed = 1.5f;
     public float turnDuration = .2f;
 
@@ -55,7 +57,7 @@ public class Player : MonoBehaviour
     {
         HandleMovement();
         HandleJump();
-        FallInpactAnimation();
+        JumpDown();
     }
 
     private void HandleMovement()
@@ -68,13 +70,8 @@ public class Player : MonoBehaviour
             {
                 myRigidbody.transform.DOScaleX(-_baseScale.x, turnDuration);
             }
-            animator.SetBool(boolRun, true);
-            if (!IsOverObject(whatIsGround))
-            {
-                animator.SetBool(boolRun, false);
-            }
+            animator.SetBool(boolRun, true);   
             
-
         }
 
         else if (Input.GetKey(KeyCode.D))
@@ -86,10 +83,6 @@ public class Player : MonoBehaviour
                 myRigidbody.transform.DOScaleX(_baseScale.x, turnDuration);
             }
             animator.SetBool(boolRun, true);
-            if (!IsOverObject(whatIsGround))
-            {
-                animator.SetBool(boolRun, false);
-            }
         }
 
         else
@@ -132,6 +125,7 @@ public class Player : MonoBehaviour
     {
         if (IsOverObject(whatIsGround) && Input.GetKeyDown(KeyCode.Space))
         {
+            animator.SetBool(boolJumpUp, true);
             myRigidbody.velocity = Vector2.up * jumpForce;
             if (myRigidbody.transform.localScale.x < 0)
             {
@@ -143,7 +137,11 @@ public class Player : MonoBehaviour
             }
             DOTween.Kill(myRigidbody.transform);
             JumpAnimation();
-        }    
+        }
+        else if (!IsOverObject(whatIsGround) && myRigidbody.velocity.y <= 0)
+        {
+            animator.SetBool(boolJumpUp, false);
+        }
     }
 
     private void JumpAnimation()
@@ -158,9 +156,21 @@ public class Player : MonoBehaviour
             myRigidbody.transform.DOScaleY(jumpScaleY, jumpduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
             myRigidbody.transform.DOScaleX(jumpScaleX, jumpduration).SetLoops(2, LoopType.Yoyo).SetEase(ease);
         }
-           
     }
 
+    private void JumpDown()
+    {
+        if(!IsOverObject(whatIsGround) && myRigidbody.velocity.y < 0)
+        {
+            animator.SetBool(boolJumpDown, true);
+        }
+        else
+        {
+            animator.SetBool(boolJumpDown, false);
+        }
+        FallInpactAnimation();
+    }
+   
     private void FallInpactAnimation()
     {
         if (IsOverObject(whatIsGround) && myRigidbody.velocity.y <= -2f)
