@@ -1609,7 +1609,7 @@ MonoBehaviour:
   ease: 27
   playerDamage: 3
   centerOffset: 0.36
-  radius: 0.4
+  radius: 0.6
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64

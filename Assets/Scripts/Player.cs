@@ -71,14 +71,12 @@ public class Player : MonoBehaviour
             {
                 myRigidbody.transform.DOScaleX(-_baseScale.x, turnDuration);
             }
-            animator.SetBool(boolRun, true);   
-            
+            animator.SetBool(boolRun, true); 
         }
 
         else if (Input.GetKey(KeyCode.D))
         {
             myRigidbody.velocity = new Vector2(_currentSpeed, myRigidbody.velocity.y);
-            myRigidbody.transform.DOScaleX(_baseScale.x, turnDuration);
             if (myRigidbody.transform.localScale.x != _baseScale.x)
             {
                 myRigidbody.transform.DOScaleX(_baseScale.x, turnDuration);
