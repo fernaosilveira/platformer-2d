@@ -62,6 +62,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tagToCompare: Player
+  animationDuration: 0.1
+  endScale: {x: 0, y: 0}
 --- !u!1 &3140335530789128733
 GameObject:
   m_ObjectHideFlags: 0
