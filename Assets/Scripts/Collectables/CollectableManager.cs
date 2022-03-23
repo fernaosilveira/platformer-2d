@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class CollectableManager : MonoBehaviour
 {
 
     public static CollectableManager Instance;
+
+    [Header("Coins")]
     public int coins;
+    public TextMeshProUGUI uiCoins;
 
     private void Awake()
     {
@@ -33,5 +37,11 @@ public class CollectableManager : MonoBehaviour
     public void AddCoins(int amount = 1)
     {
         coins += amount;
+        UpdateUi();
+    }
+
+    public void UpdateUi()
+    {
+        uiCoins.text = coins.ToString();
     }
 }
