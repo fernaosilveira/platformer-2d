@@ -185,7 +185,7 @@ public class Player : MonoBehaviour
 
     private void FallInpactAnimation()
     {
-        if (IsOverObject(whatIsGround) && myRigidbody.velocity.y <= -2f)
+        if (IsOverObject(whatIsGround) && myRigidbody.velocity.y <= -6f)
         {
             DOTween.Kill(myRigidbody.transform);
             if (myRigidbody.transform.localScale.x < 0)

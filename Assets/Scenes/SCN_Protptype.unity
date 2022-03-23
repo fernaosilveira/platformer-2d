@@ -693,7 +693,7 @@ SpriteShapeRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 12
+  m_SortingOrder: 16
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_MaskInteraction: 0
   m_ShapeTexture: {fileID: 0}
@@ -4649,7 +4649,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121418892}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.107799605, y: -11.87, z: 0}
+  m_LocalPosition: {x: 0.107799605, y: -13.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0.72}
   m_Children:
   - {fileID: 702920528}
@@ -4674,7 +4674,7 @@ MonoBehaviour:
   jumpForce: 60
   enemyBounce: 30
   friction: {x: 0.3, y: 0}
-  jumpduration: 0.14
+  jumpduration: 0.2
   jumpScaleY: 1.24
   jumpScaleX: 0.8
   fallduration: 0.16
